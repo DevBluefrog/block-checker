@@ -6,6 +6,7 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 
 import indexRouter from './routes/index';
+import queryRouter from './controllers/query';
 import debugRouter from './controllers/debug';
 import models from './models/index';
 import { createDummy } from './models';
@@ -27,9 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 
-app.get('/sync', async function (req, res) {
-  await models.sequelize.sync({ force:true });
-  await createDummy();
+app.get('/sync', function (req, res) {
+  models.sequelize.sync({ force:true });
   res.json({
       success: true,
       msg: 'Rebuilt DB Tables, and dummy data',
@@ -38,6 +38,7 @@ app.get('/sync', async function (req, res) {
 
 app.get('/', indexRouter);
 app.use(debugRouter);
+app.use(queryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
