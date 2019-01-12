@@ -20,7 +20,7 @@ router.get('/query/:queryAddress', async (req, res) => {
                 } else {
                     return res.json({
                         queryAddress: req.params.queryAddress,
-                        queryPoint: 100 * (1 - 1/count),
+                        queryPoint: Math.floor(100 * (1 - 1/count)),
                         queryReported: count
                     })
                 }
