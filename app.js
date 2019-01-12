@@ -4,6 +4,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 
 import indexRouter from './routes/index';
 import queryRouter from './controllers/query';
@@ -28,6 +29,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.get('/sync', function (req, res) {
   models.sequelize.sync({ force:true });
