@@ -27,12 +27,20 @@ router.get('/query/:address', async(req, res) => {
 });
 
 router.post('/query', async(req, res) => {
-    const query = await db.query.create({
-        queryAddress: req.body.queryAddress,
-        queryComment: req.body.queryComment,
-        queryContributor: req.body.queryContributor,
-    });
-    return res.json(true);
+    try{    
+        const query = await db.query.create({
+            queryAddress: req.body.queryAddress,
+            queryComment: req.body.queryComment,
+            queryContributor: req.body.queryContributor,
+            queryPoint: 0,
+            queryReported: 0
+        });
+    
+        return res.json(query);
+        
+    }catch(err){
+        console.log(err);
+    }
 });
 
 export default router;
