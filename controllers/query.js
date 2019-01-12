@@ -15,11 +15,18 @@ router.get('/query/:queryAddress', async (req, res) => {
             where: { queryAddress: req.params.queryAddress },
         })
             .then(count => {
-                return res.json({
-                    queryAddress: req.params.queryAddress,
-                    queryPoint: count * 5,
-                    queryReported: count
-                })
+                if (count == 0) {
+                    return res.json(false);
+                } else {
+                    return res.json({
+                        queryAddress: req.params.queryAddress,
+                        queryPoint: count * 5,
+                        queryReported: count
+                    })
+                }
+            })
+            .catch(err => {
+                return res.json(false);
             });
 
         if (query == null) {
