@@ -20,7 +20,7 @@ router.get('/query/:queryAddress', async (req, res) => {
                 } else {
                     return res.json({
                         queryAddress: req.params.queryAddress,
-                        queryPoint: count * 5,
+                        queryPoint: 100 * (1 - 1/count),
                         queryReported: count
                     })
                 }
@@ -54,29 +54,5 @@ router.post('/query', async (req, res) => {
         console.log(err);
     }
 });
-
-// router.put('/report/query/:queryAddress', async(req, res) => {
-//     try{
-//         const queryData = await db.query.findOne({
-//             where: { queryAddress: req.params.queryAddress }
-//         });
-
-//         const queryReported = queryData.queryReported+1;
-//         const queryPoint = 5 * queryReported;
-
-//         const putData = {
-//             queryPoint: queryPoint,
-//             queryReported: queryReported
-//         }
-
-//         const query = await db.query.update(putData, {
-//             where: { queryAddress: req.params.queryAddress }
-//         });
-
-//         return res.json(query);
-//     }catch(err){
-//         console.log(err);
-//     }
-// })
 
 export default router;
