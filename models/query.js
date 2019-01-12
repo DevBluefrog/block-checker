@@ -11,12 +11,6 @@ export default (sequelize, DataTypes) => {
         queryContributor: {
             type: DataTypes.STRING,
         },
-        queryPoint: {
-            type: DataTypes.INTEGER,
-        },
-        queryReported: {
-            type: DataTypes.INTEGER,
-        },
     }, {});
     query.associate = function(models) {
 
